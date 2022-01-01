@@ -42,6 +42,9 @@
                 <div class="mt-3">
                   <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
                 </div>
+                <div class="mt-3">
+                  <center><a href="{{url('/')}}" class="btn btn-warning btn-sm ">Back</a></center>
+                </div>
                 <!-- <div class="my-2 d-flex justify-content-between align-items-center">
                   <div class="form-check">
                     <label class="form-check-label text-muted">

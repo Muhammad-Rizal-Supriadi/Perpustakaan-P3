@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../assets/vendors/feather/feather.css">
   <link rel="stylesheet" href="../assets/vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
+  <link 
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <!-- End plugin css for this page -->

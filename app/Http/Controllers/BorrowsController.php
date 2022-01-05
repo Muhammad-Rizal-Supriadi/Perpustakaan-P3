@@ -23,17 +23,18 @@ class BorrowsController extends Controller
         //     echo "tidak ada";
         // }
 
-         if(Isset($response['data'])){
-            //echo "Ada";
-            return view('Borrows.index',['response' => $response['data'],'response_members' => $response_members['data'],'response_books' => $response_books['data'],'date' => $date], 200);
-         }else{
-            return view('Borrows.index',['response' => $response,'response_members' => $response_members['data'],'response_books' => $response_books['data'],'date' => $date]);
-         }
+        $response_data = ($response->successful()) ? $response['data'] : [];
+        $response_members_data = ($response_members->successful()) ? $response_members['data'] : [];
+        $response_books_data = ($response_books->successful()) ? $response_books['data'] : [];
 
+        
+        return view('Borrows.index', [
+            'response' => $response_data,
+            'response_members' => $response_members_data,
+            'response_books' => $response_books_data,
+            'date' => $date
+        ]);
 
-
-
-         
         //return view('Borrows.index',['response' => $response['data'],'response_members' => $response_members['data'],'response_books' => $response_books['data'],'date' => $date], 200);
         //return view('Borrows.index')->with('error','Data not Found', 400);
         // return view('Categories.index',[

@@ -103,7 +103,7 @@ class BorrowsController extends Controller
     public function delete($id){
         $token = session()->get('token');
         $response = Http::withToken($token)->delete('https://apiperpustakaan.herokuapp.com/api/v1/borrows/'.$id);
-        return redirect()->back()->with('error','Data deleted successfully');;
+        return redirect()->back()->with('error','Data deleted successfully');
         // return $response->json();
     }
 }

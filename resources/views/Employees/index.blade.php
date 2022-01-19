@@ -109,10 +109,8 @@
                 <input type="number" class="form-control" name="phone" placeholder="Phone Number">
               </div>
               <div>
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Input Images</label>
-                    <input class="form-control" type="file" id="image" name="image">
-                </div>
+                  <label>Images</label>
+                  <input type="file" class="form-control" name="image">
               </div>
              
               <div>

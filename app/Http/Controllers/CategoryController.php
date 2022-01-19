@@ -13,8 +13,9 @@ class CategoryController extends Controller
     public function index(){
         $token = session()->get('token');
         $response = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/categories');
-        // return $response->json();
-        return view('Categories.index',['response' => $response['data']]);
+        
+        $response_data = ($response->successful()) ? $response['data'] : [];
+        return view('Categories.index',['response' => $response_data]);
         // return view('Categories.index',[
         //     'response'=>json_decode($response['data'])
         // ]);

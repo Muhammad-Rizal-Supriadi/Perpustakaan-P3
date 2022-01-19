@@ -44,7 +44,7 @@
                 Author
                 </th>
                 <th>
-                Publisher
+                Qty
                 </th>
                 <th>
                   Option
@@ -69,8 +69,8 @@
                 <td>
                 {{$books['author']}}
                 </td>
-                <td>
-                {{$books['publisher']['name']}}
+                <td bgcolor="yellow">
+                {{$books['qty']}}
                 </td>
                 <td>
                     <a href="{{route('books.getById',$books['id'])}}" class="btn btn-primary btn-sm">Detail</a>

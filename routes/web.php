@@ -82,3 +82,5 @@ Route::get('borrows-add',[BorrowsController::class,'createborrows'])->name('borr
 Route::get('borrows_update/{id}',[BorrowsController::class,'updateborrows'])->name('borrows_update');
 Route::get('borrows-update/{id}',[BorrowsController::class,'update'])->name('borrows.update');
 Route::get('borrows-delete/{id}',[BorrowsController::class,'delete'])->name('borrows.delete');
+
+Route::post('upload-file', 'UploadsController@uploadFile');

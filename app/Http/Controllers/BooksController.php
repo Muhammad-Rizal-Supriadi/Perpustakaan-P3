@@ -10,11 +10,17 @@ class BooksController extends Controller
     public function index(){
         $token = session()->get('token');
         $response = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/books');
-        // return $response->json();
         $response_category = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/categories');
         $response_publishers = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/publishers');
-        // return $response->json();
-        return view('Books.index',['response_category'=>$response_category['data'],'response_publishers'=>$response_publishers['data'],'response' => $response['data']]);
+        
+        $response_data = ($response->successful()) ? $response['data'] : [];
+        $response_category_data = ($response_category->successful()) ? $response_category['data'] : [];
+        $response_publishers_data = ($response_publishers->successful()) ? $response_publishers['data'] : [];
+
+        return view('Books.index',[
+            'response_category'=>$response_category_data,
+            'response_publishers'=>$response_publishers_data,
+            'response' => $response_data]);
         // return view('Categories.index',[
         //     'response'=>json_decode($response['data'])
         // ]);

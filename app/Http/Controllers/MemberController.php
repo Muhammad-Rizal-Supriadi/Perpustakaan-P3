@@ -10,8 +10,10 @@ class MemberController extends Controller
     public function index(){
         $token = session()->get('token');
         $response = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/members');
+        
+        $response_data = ($response->successful()) ? $response['data'] : [];
         //return $response->json();
-        return view('Members.index',['response' => $response['data']]);
+        return view('Members.index',['response' => $response_data]);
         // return view('Categories.index',[
         //     'response'=>json_decode($response['data'])
         // ]);
@@ -94,7 +96,7 @@ class MemberController extends Controller
     public function delete($id){
         $token = session()->get('token');
         $response = Http::withToken($token)->delete('https://apiperpustakaan.herokuapp.com/api/v1/members/'.$id);
-        //return redirect()->back()->with('error','Data deleted successfully');;
-        return $response->json();
+        return redirect()->back()->with('error','Data deleted successfully');;
+        //return $response->json();
     }
 }

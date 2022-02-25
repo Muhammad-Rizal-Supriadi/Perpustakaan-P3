@@ -3,7 +3,7 @@
 <div class="col-12 col-md-8" style="position: center;">
     <div class="card" style="position: center;">
     <div class="card-body">
-        <h4 class="card-title">Update Publisher</h4>
+        <h4 class="card-title">Update Books</h4>
         <form action="{{route('books.update', $books['id'])}}" method="get">
             @csrf
             <strong>Title</strong>

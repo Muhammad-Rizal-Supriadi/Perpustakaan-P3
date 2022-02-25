@@ -118,7 +118,7 @@
               </div>
               <div>
                 <label>Borrow Date</label>
-                <input type="text"  class="form-control" name="borrow_date" readonly data-date-format="DD MMMM YYYY"  value="2015-08-09">
+                <input type="text"  class="form-control" name="borrow_date" readonly data-date-format="DD MMMM YYYY"  value="2022-01-25">
               </div>
               <div>
                 <label>Return Date</label>

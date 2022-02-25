@@ -104,7 +104,6 @@
       </div>
       <div class="modal-body">
           <form action="{{route('books.add')}}" method="get">
-            @csrf
               <div>
                 <label>Title</label>
                 <input type="text" class="form-control" name="title" placeholder="Title">

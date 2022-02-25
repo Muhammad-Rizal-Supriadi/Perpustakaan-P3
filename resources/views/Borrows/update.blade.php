@@ -21,7 +21,7 @@
             </select>
             <br>
             <strong>Borrows Date</strong>
-            <input type="text"  class="form-control" name="borrow_date" readonly data-date-format="DD MMMM YYYY"  value="2015-08-09">
+            <input type="text"  class="form-control" name="borrow_date" readonly data-date-format="DD MMMM YYYY"  value="2022-02-24">
             <br>
             <strong>Return Date</strong>
             <input type="date"  class="form-control" name="return_date">

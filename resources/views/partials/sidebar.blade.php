@@ -15,7 +15,7 @@
             </a>
           </li>
           <li class="nav-item">    
-            <a class="nav-link" href="{{ route('publishersIndex') }}">
+            <a class="nav-link" href="{{ route('publishers.index') }}">
               <i class="ti-home menu-icon"></i>
               <span class="menu-title">Publishers</span>
             </a>

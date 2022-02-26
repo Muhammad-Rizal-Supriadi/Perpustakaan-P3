@@ -41,13 +41,17 @@ Route::middleware(['token'])->group(function () {
         'index', 'show', 'store', 'edit', 'update', 'destroy'
     ]);
     
+    Route::resource('publishers', PublishersController::class)->only([
+        'index', 'show', 'store', 'edit', 'update', 'destroy'
+    ]);
+
     //Publishers
-    Route::get('publishers',[PublishersController::class,'index'])->name('publishersIndex');
-    Route::get('publishers-detail/{id}',[PublishersController::class,'getById'])->name('publishers.getById');
-    Route::get('publishers-add',[PublishersController::class,'createPublishers'])->name('publishers.add');
-    Route::get('publishers_update/{id}',[PublishersController::class,'updatepublishers'])->name('publishers_update');
-    Route::get('publishers-update/{id}',[PublishersController::class,'update'])->name('publishers.update');
-    Route::get('publishers-delete/{id}',[PublishersController::class,'delete'])->name('publishers.delete');
+    // Route::get('publishers',[PublishersController::class,'index'])->name('publishersIndex');
+    // Route::get('publishers-detail/{id}',[PublishersController::class,'getById'])->name('publishers.getById');
+    // Route::get('publishers-add',[PublishersController::class,'createPublishers'])->name('publishers.add');
+    // Route::get('publishers_update/{id}',[PublishersController::class,'updatepublishers'])->name('publishers_update');
+    // Route::get('publishers-update/{id}',[PublishersController::class,'update'])->name('publishers.update');
+    // Route::get('publishers-delete/{id}',[PublishersController::class,'delete'])->name('publishers.delete');
     // Route::get('category',[CategoryController::class,'store']);
     
     //Employees

@@ -4,7 +4,7 @@
     <div class="col-6 col-md-4">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Add Category</h4>
+                <h4 class="card-title">Create Category</h4>
                 <form action="{{ route('categories.store') }}" method="POST">
                     @csrf
                     <input type="text" class="form-control" name="name" class="form-control"

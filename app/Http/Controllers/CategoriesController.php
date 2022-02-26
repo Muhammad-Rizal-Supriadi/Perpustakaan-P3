@@ -13,7 +13,7 @@ class CategoriesController extends Controller
         $req = Http::withToken($token)->get("" . env('API_URL') . "categories");
 
         $res = ($req->successful()) ? $req['data'] : [];
-        return view('categories.index', ['response' => $res]);
+        return view('categories.index', ['categories' => $res]);
     }
 
     public function store(Request $request)
@@ -42,8 +42,7 @@ class CategoriesController extends Controller
             return redirect()->route('categories.index');
         }
 
-        $res = $req->json();
-        return view('categories.edit', ['category' => $res['data']]);
+        return view('categories.edit', ['category' => $req['data']]);
     }
 
     public function update(Request $request, $id)

@@ -7,7 +7,7 @@
         <form action="{{ route('categories.update', $category['id']) }}" method="POST">
             @method('PUT')
             @csrf
-            <input type="text" class="form-control" name="name" class="form-control" placeholder="Input Category" value="{{ $category['name'] }}">
+            <input type="text" class="form-control" name="name" class="form-control" placeholder="Category Name" value="{{ $category['name'] }}">
             <br>
             <button type="submit" class="btn btn-primary">Save</button>
             <a href="{{ route('categories.index') }}" class="btn btn-warning">Back</a>

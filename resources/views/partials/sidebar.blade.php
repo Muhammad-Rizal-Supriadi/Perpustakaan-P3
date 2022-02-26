@@ -21,7 +21,7 @@
             </a>
           </li>
           <li class="nav-item">    
-            <a class="nav-link" href="{{ route('booksIndex') }}">
+            <a class="nav-link" href="{{ route('books.index') }}">
               <i class="ti-book menu-icon"></i>
               <span class="menu-title">Books</span>
             </a>

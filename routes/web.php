@@ -36,14 +36,10 @@ Route::middleware(['token'])->group(function () {
     Route::resource('categories', CategoriesController::class)->only([
         'index', 'store', 'edit', 'update', 'destroy'
     ]);
-    
-    //Books
-    Route::get('books',[BooksController::class,'index'])->name('booksIndex');
-    Route::get('books/{id}',[BooksController::class,'getById'])->name('books.getById');
-    Route::get('books-add',[BooksController::class,'createBooks'])->name('books.add');
-    Route::get('books_update/{id}',[BooksController::class,'updateBooks'])->name('books_update');
-    Route::get('books-update/{id}',[BooksController::class,'update'])->name('books.update');
-    Route::get('books-delete/{id}',[BooksController::class,'delete'])->name('books.delete');
+
+    Route::resource('books', BooksController::class)->only([
+        'index', 'show', 'store', 'edit', 'update', 'destroy'
+    ]);
     
     //Publishers
     Route::get('publishers',[PublishersController::class,'index'])->name('publishersIndex');

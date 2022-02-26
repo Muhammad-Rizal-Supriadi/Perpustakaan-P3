@@ -1,4 +1,4 @@
-@extends('Admin.template')
+@extends('layouts.main')
 @section('content')
 <body>
 <div class="col-lg-12 grid-margin stretch-card">

@@ -1,4 +1,4 @@
-@extends('Admin.template')
+@extends('layouts.main')
 @section('content')
 <!-- Modal -->
 

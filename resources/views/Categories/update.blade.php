@@ -1,4 +1,4 @@
-@extends('Admin.template')
+@extends('layouts.main')
 @section('content')
 <div class="col-8 col-md-6">
     <div class="card">

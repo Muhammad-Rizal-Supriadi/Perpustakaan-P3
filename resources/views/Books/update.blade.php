@@ -1,4 +1,4 @@
-@extends('Admin.template')
+@extends('layouts.main')
 @section('content')
 <div class="col-12 col-md-8" style="position: center;">
     <div class="card" style="position: center;">

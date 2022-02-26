@@ -2,13 +2,13 @@
 
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\PublishersController;
 use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\BorrowsController;
+use App\Http\Controllers\CategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,13 +33,9 @@ Route::middleware(['token'])->group(function () {
         'index'
     ]);
 
-    //Category
-    Route::get('category',[CategoryController::class,'index'])->name('category.index');
-    Route::get('category/{id}',[CategoryController::class,'getById'])->name('Category.getById');
-    Route::get('category-add',[CategoryController::class,'createCategory'])->name('category.add');
-    Route::get('category_update/{id}',[CategoryController::class,'updateCategory'])->name('category_update');
-    Route::get('category-update/{id}',[CategoryController::class,'update'])->name('category.update');
-    Route::get('category-delete/{id}',[CategoryController::class,'delete'])->name('category.delete');
+    Route::resource('categories', CategoriesController::class)->only([
+        'index', 'store', 'edit', 'update', 'destroy'
+    ]);
     
     //Books
     Route::get('books',[BooksController::class,'index'])->name('booksIndex');

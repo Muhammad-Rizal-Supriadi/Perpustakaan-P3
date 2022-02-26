@@ -9,9 +9,9 @@
             </a>
           </li>
           <li class="nav-item">    
-            <a class="nav-link" href="{{ route('category.index') }}">
+            <a class="nav-link" href="{{ route('categories.index') }}">
               <i class="ti-menu-alt menu-icon"></i>
-              <span class="menu-title">Category</span>
+              <span class="menu-title">Categories</span>
             </a>
           </li>
           <li class="nav-item">    

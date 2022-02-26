@@ -5,11 +5,11 @@
     <div class="col-6 col-md-4">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Input Categories</h4>
-                <form action="{{route('category.add')}}" method="get">
+                <h4 class="card-title">Add Category</h4>
+                <form action="{{ route('categories.store') }}" method="POST">
                     @csrf
                     <input type="text" class="form-control" name="name" class="form-control"
-                        placeholder="Input Category">
+                        placeholder="Category Name">
                     <br>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
@@ -24,7 +24,7 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Data Categories</h4>
+                        <h4 class="card-title">Categories Data</h4>
                         <br>
                         @if ($message = Session::get('success'))
                         <div class="alert alert-success alert-block">
@@ -45,9 +45,6 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            Id
-                                        </th>
-                                        <th>
                                             Name
                                         </th>
                                         <th>
@@ -61,20 +58,22 @@
                                 <tbody>
                                     @foreach($response as $category)
                                     <tr>
-                                        <td class="py-1">
-                                            {{$category['id']}}
+                                        <td>
+                                            {{ $category['name'] }}
                                         </td>
                                         <td>
-                                            {{$category['name']}}
+                                            {{ $category['created_at'] }}
                                         </td>
                                         <td>
-                                            {{$category['created_at']}}
-                                        </td>
-                                        <td>
-                                            <a href="{{route('category_update',$category['id'])}}"
+                                            <a href="{{ route('categories.edit', $category['id']) }}"
                                                 class="btn btn-success btn-sm">Edit</a>
-                                            <a href="{{route('category.delete',$category['id'])}}"
-                                                class="btn btn-danger btn-sm">Hapus</a>
+
+                                            <form action="{{ route('categories.destroy', $category['id']) }}"
+                                                method="POST" class="d-inline">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach

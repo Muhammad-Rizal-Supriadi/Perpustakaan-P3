@@ -31,7 +31,7 @@
                 <h2 style="font-family: sans-serif;">My Library</h2>
               </div>
               <h6 class="font-weight-light">Sign in to continue.</h6>
-              <form class="pt-3" action="{{route('loginApi')}}" method="post">
+              <form class="pt-3" action="{{route('login.store')}}" method="post">
                   @csrf
                 <div class="form-group">
                   <input type="email" class="form-control form-control-lg" name="email" id="exampleInputEmail1" placeholder="Username">

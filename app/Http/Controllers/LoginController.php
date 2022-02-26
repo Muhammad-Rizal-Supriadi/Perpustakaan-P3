@@ -3,52 +3,42 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
-    public function login(){
+    public function index()
+    {
         return view('login');
     }
 
-    public function loginApi(Request $request){
+    public function store(Request $request)
+    {
         $http = new \GuzzleHttp\Client;
 
         $email    = $request->email;
-        $password = $request->password; 
+        $password = $request->password;
+        try {
+            $req = $http->request('POST', "".env('API_URL')."login/web", [
+                'headers' => [
+                    'Authorization' => 'Bearer' . session()->get('token.access_token')
+                ],
+                'form_params' => [
+                    'email' => $email,
+                    'password' => $password,
+                ]
+            ]);
 
-        $response = $http->post('https://apiperpustakaan.herokuapp.com/api/v1/login/web', [
-            'headers'=>[
-                'Authorization'=>'Bearer'.session()->get('token.access_token')
-            ],
-            'query'=>[
-                'email'=>$email,
-                'password'=>$password,
-            ]
-            
-        ]);
-        
-        $result = json_decode((string)$response->getBody(),true);
-        $token = $result['token']['token'];
+            $res = json_decode(
+                (string)$req->getBody(),
+                true
+            );
 
-        $request->session()->put('token',$token);
-        Session::put('authentication',$token);
+            $token = $res['token']['token'];
+            $request->session()->put('token', $token);
 
-        // dd($result);
-        // dd(
-        //     Session::get('authentication')
-        // );
-        // return dd($result);
-
-        return redirect('admin');
+            return redirect()->route('admin.index');
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            return redirect()->route('login.index');
+        }
     }
-
-
-    // public function verification(){
-    //     $response = Http::post('https://apiperpustakaan.herokuapp.com/api/v1/login', [
-    //         'email' => 'admin@admin.com',
-    //         'code' => '200',
-    //     ]);
-    // }
 }

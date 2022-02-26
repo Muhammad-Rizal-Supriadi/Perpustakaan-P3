@@ -29,13 +29,18 @@
   <link rel="stylesheet" href="../assets/vendors/select2/select2.min.css">
   <link rel="stylesheet" href="../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
   <!-- End plugin css for this page -->
-  <!-- inject:css -->
+  <!-- inject:css --
   <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css">
-  <!-- endinject -->
-  <!-- Plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <!-- endinject -->
+-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+        <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
 </head>
 <body>
   <div class="container-scroller">
@@ -430,10 +435,10 @@
   <script src="../assets/js/settings.js"></script>
   <script src="../assets/js/todolist.js"></script>
   <!-- endinject -->
-  <!-- Custom js for this page-->
+  <!-- Custom js for this page--
   <script src="../assets/js/dashboard.js"></script>
   <script src="../assets/js/Chart.roundedBarCharts.js"></script>
-  <!-- End custom js for this page-->
+  <!-- End custom js for this page--
   <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
@@ -441,6 +446,11 @@
   <!-- End plugin js for this page -->
   <!-- Custom js for this page-->
   <script src="../assets/js/chart.js"></script>
+  <script type="text/javascript">
+	$(document).ready(function(){
+		$('.data').DataTable();
+	});
+</script>
 </body>
 
 </html>

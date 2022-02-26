@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 
 class LoginController extends Controller
 {
@@ -18,30 +20,44 @@ class LoginController extends Controller
         $email    = $request->email;
         $password = $request->password; 
 
-        $response = $http->post('https://apiperpustakaan.herokuapp.com/api/v1/login/web', [
-            'headers'=>[
-                'Authorization'=>'Bearer'.session()->get('token.access_token')
-            ],
-            'query'=>[
-                'email'=>$email,
-                'password'=>$password,
-            ]
-            
+        $rules = [
+            'email' => 'required',
+            'password' => 'required' 
+        ];
+
+        $validator = Validator::make($rules,[
+            'required' => "The field : Attribute is required"
         ]);
         
-        $result = json_decode((string)$response->getBody(),true);
-        $token = $result['token']['token'];
+        if($validator){
+            $response = $http->post('https://apiperpustakaan.herokuapp.com/api/v1/login/web', [
+                'headers'=>[
+                    'Authorization'=>'Bearer'.session()->get('token.access_token')
+                ],
+                'query'=>[
+                    'email'=>$email,
+                    'password'=>$password,
+                ]
+                
+            ]);
 
-        $request->session()->put('token',$token);
-        Session::put('authentication',$token);
+            $result = json_decode((string)$response->getBody(),true);
+            $token = $result['token']['token'];
 
-        // dd($result);
-        // dd(
-        //     Session::get('authentication')
-        // );
-        // return dd($result);
+            $request->session()->put('token',$token);
+            Session::put('authentication',$token);
 
-        return redirect('admin');
+            // dd($result);
+            // dd(
+            //     Session::get('authentication')
+            // );
+            // return dd($result);
+
+            return redirect('admin');
+        }else{
+            return redirect()->back();
+        }    
+        
     }
 
 

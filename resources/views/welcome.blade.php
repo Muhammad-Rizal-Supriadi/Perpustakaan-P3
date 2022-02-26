@@ -54,9 +54,9 @@
 						<div class="col-lg-5">
 							<div class="banner_content">
 								<h2>Web-Based Library <br />Applications and Bots</h2>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim. sed do eiusmod tempor incididunt.</p>
-								<a class="banner_btn" href="#">Get Started</a>
-								<a class="banner_btn2" href="#">Download</a>
+								<p>Aplikasi yang dapat membantu dalam mengelola data perpustakaan serta data peminjaman yang terhubung dengan aplikasi Telegram.</p>
+								<!-- <a class="banner_btn" href="#">Get Started</a> -->
+								<a class="banner_btn2" href="https://desktop.telegram.org/">Download Telegram</a>
 							</div>
 						</div>
 						<div class="col-lg-7">
@@ -116,7 +116,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
         				</aside>
         			</div>
-        			<div class="col-lg-5 col-sm-6">
+        			<!-- <div class="col-lg-5 col-sm-6">
         				<aside class="f_widget news_widget">
         					<div class="f_title">
         						<h3>Newsletter</h3>
@@ -132,7 +132,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                 </form>
                             </div>
         				</aside>
-        			</div>
+        			</div> -->
         			<div class="col-lg-2">
         				<aside class="f_widget social_widget">
         					<div class="f_title">

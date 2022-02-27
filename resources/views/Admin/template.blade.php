@@ -348,7 +348,7 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="{{route('booksIndex')}}">Daftar Buku</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{route('booksIndex')}}">Data Books</a></li>
               </ul>
             </div>
           </li>
@@ -361,7 +361,7 @@
             </a>
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{route('employeesIndex')}}">Basic table</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{route('employeesIndex')}}">Data Employees</a></li>
               </ul>
             </div>
           </li>
@@ -373,7 +373,7 @@
             </a>
             <div class="collapse" id="icons">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{route('membersIndex')}}">Kelola Members</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{route('membersIndex')}}">Data Members</a></li>
               </ul>
             </div>
           </li>

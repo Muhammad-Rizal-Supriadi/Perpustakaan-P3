@@ -28,12 +28,12 @@
             <strong>Qty</strong>
             <input type="number" class="form-control" name="qty" class="form-control" value="{{$books['qty']}}">
             <br>
-            <strong>Author</strong>
+            <strong>Number of page</strong>
             <input type="number" class="form-control" name="page" class="form-control" value="{{$books['page']}}">
             <br>
             <strong>Category</strong>
-            <select class="form-control" name="category_id" value="{{$books['category']['name']}}">
-                <option>--Select</option>
+            <select class="form-control" name="category_id">
+                <option value="{{$books['category']['name']}}">{{$books['category']['name']}}</option>
                 @foreach($response_category as $category)
                 <option value="{{$category['id']}}">{{$category['name']}}</option>
                 @endforeach
@@ -41,7 +41,7 @@
             <br>
             <strong>Publisher</strong>
             <select class="form-control" name="publisher_id">
-                <option>--Select</option>
+                <option value="{{$books['publisher']['name']}}">{{$books['publisher']['name']}}</option>
                 @foreach($response_publishers as $publishers)
                 <option value="{{$publishers['id']}}">{{$publishers['name']}}</option>
                 @endforeach

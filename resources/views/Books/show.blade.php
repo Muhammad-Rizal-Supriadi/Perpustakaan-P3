@@ -32,9 +32,10 @@
                     <td class="col-sm-1">:</td>
                     <td class="col-sm-8">{{ $book['category']['name'] }}</td>
                 </tr>
-                <td class="col-sm-3">Publisher</td>
-                <td class="col-sm-1">:</td>
-                <td class="col-sm-8">{{ $book['publisher']['name'] }}</td>
+                <tr>
+                    <td class="col-sm-3">Publisher</td>
+                    <td class="col-sm-1">:</td>
+                    <td class="col-sm-8">{{ $book['publisher']['name'] }}</td>
                 </tr>
                 <tr>
                     <td class="col-sm-3">Created At</td>

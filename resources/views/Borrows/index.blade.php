@@ -1,6 +1,5 @@
 @extends('layouts.main')
 @section('content')
-<body>
 <div class="col-lg-12 grid-margin stretch-card">
     
     <div class="card">
@@ -36,9 +35,6 @@
             <thead>  
             <tr>
                 <th>
-                Id
-                </th>
-                <th>
                 Employee
                 </th>
                 <th>
@@ -59,18 +55,23 @@
             </tr>
             </thead>
             <tbody>
-              @foreach($response as $borrows)
+              @foreach($borrows as $borrow)
                 <tr>
-                    <td>{{$borrows['id']}}</td>
-                    <td>{{$borrows['employee']['name']}}</td>
-                    <td>{{$borrows['member']['name']}}</td>
-                    <td>{{$borrows['book']['title']}}</td>
-                    <td>{{$borrows['borrow_date']}}</td>
-                    <td>{{$borrows['return_date']}}</td>
+                    <td>{{ $borrow['employee']['name'] }}</td>
+                    <td>{{ $borrow['member']['name'] }}</td>
+                    <td>{{ $borrow['book']['title'] }}</td>
+                    <td>{{ $borrow['borrow_date'] }}</td>
+                    <td>{{ $borrow['return_date'] }}</td>
                     <td>
-                        <a href="{{route('borrows.getById',$borrows['id'])}}" class="btn btn-primary btn-sm">Detail</a>
-                        <a href="{{route('borrows_update',$borrows['id'])}}" class="btn btn-success btn-sm">Edit</a>
-                        <a href="{{route('borrows.delete',$borrows['id'])}}" class="btn btn-danger btn-sm">Hapus</a>
+                        <a href="{{ route('borrows.show', $borrow['id']) }}" class="btn btn-primary btn-sm">Detail</a>
+                        <a href="{{ route('borrows.edit', $borrow['id']) }}" class="btn btn-success btn-sm">Edit</a>
+                
+                        <form action="{{ route('borrows.destroy', $borrow['id']) }}" method="POST"
+                        class="d-inline">
+                          @method('DELETE')
+                          @csrf
+                          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
@@ -80,52 +81,46 @@
     </div>
     </div>
 </div>
-</body>
-
-
-
-<!-- Button trigger modal -->
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create Borrows</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Create Borrow</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-          <form action="{{route('borrows.add')}}" method="get" enctype="multipart/form-data">
+          <form action="{{ route('borrows.store') }}" method="POST">
             @csrf
               <div>
                 <label>Member</label>
                 <select name="member_id" class="form-control">
-                    @foreach($response_members as $members)
-                    <option value="{{$members['id']}}">{{$members['name']}}</option>
+                    @foreach($members as $member)
+                    <option value="{{ $member['id'] }}">{{ $member['name'] }}</option>
                     @endforeach
                 </select>
               </div>
               <div>
                 <label>Title Books</label>
                 <select name="book_id" class="form-control">
-                    @foreach($response_books as $books)
-                    <option value="{{$books['id']}}">{{$books['title']}}</option>
+                    @foreach($books as $book)
+                    <option value="{{ $book['id'] }}">{{ $book['title'] }}</option>
                     @endforeach
                 </select>
               </div>
               <div>
                 <label>Borrow Date</label>
-                <input type="text"  class="form-control" name="borrow_date" readonly data-date-format="DD MMMM YYYY"  value="2022-01-25">
+                <input type="date"  class="form-control" name="borrow_date" readonly data-date-format="DD MMMM YYYY"  value="{{ date("Y-m-d") }}">
               </div>
               <div>
                 <label>Return Date</label>
                 <input type="date"  class="form-control" name="return_date">
               </div>
               <br>  
-              <button type="submit" class="btn btn-primary">Save changes</button>            
+              <button type="submit" class="btn btn-primary">Save</button>            
           </form>
       </div>
     </div>

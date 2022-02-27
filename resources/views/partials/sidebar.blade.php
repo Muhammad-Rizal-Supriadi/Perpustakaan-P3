@@ -1,5 +1,3 @@
-
-      <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
@@ -27,23 +25,22 @@
             </a>
           </li>
           <li class="nav-item">    
-            <a class="nav-link" href="{{ route('employeesIndex') }}">
+            <a class="nav-link" href="{{ route('employees.index') }}">
               <i class="ti-id-badge menu-icon"></i>
               <span class="menu-title">Employees</span>
             </a>
           </li>
           <li class="nav-item">    
-            <a class="nav-link" href="{{ route('membersIndex') }}">
+            <a class="nav-link" href="{{ route('members.index') }}">
               <i class="ti-user menu-icon"></i>
               <span class="menu-title">Members</span>
             </a>
           </li>
           <li class="nav-item">    
-            <a class="nav-link" href="{{ route('borrowsIndex') }}">
+            <a class="nav-link" href="{{ route('borrows.index') }}">
               <i class="ti-bookmark menu-icon"></i>
               <span class="menu-title">Borrows</span>
             </a>
           </li>
         </ul>
       </nav>
-      <!-- partial -->

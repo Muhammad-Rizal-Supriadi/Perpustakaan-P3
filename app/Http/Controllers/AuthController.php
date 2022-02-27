@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     public function index()
     {
@@ -25,10 +25,19 @@ class LoginController extends Controller
         if ($req->clientError()) {
             return redirect()->route('login.index');
         } 
+
+        if (array_key_exists('employee', $req['data'])){
+            $request->session()->put('employee', $req['data']['employee']);
+        } else {
+            $request->session()->put('member', $req['data']['member']);
+        }
         
-        $res = $req->json();
-        $token = $res['token']['token'];
-        $request->session()->put('token', $token);
+        $request->session()->put('token', $req['data']['token']);
         return redirect()->route('admin.index');
+    }
+
+    public function logout(Request $request) {
+        $request->session()->flush();
+        return redirect()->route('login.index');
     }
 }

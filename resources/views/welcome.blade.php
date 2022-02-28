@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="icon" href="{{ url('images/favicon.png') }}" type="image/png">
-        <title>Library</title>
+        <title>{{ env('APP_NAME') }}</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{ url('css/homepage/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ url('vendors/linericon/style.css') }}">

@@ -23,6 +23,7 @@ class BorrowsController extends Controller
             'borrows' => $res_borrows,
             'members' => $res_members,
             'books' => $res_books,
+            'title' => 'Borrows'
         ]);
     }
 
@@ -35,7 +36,10 @@ class BorrowsController extends Controller
             return redirect()->route('borrows.index');
         }
 
-        return view('borrows.show', ['borrow' => $req['data']]);
+        return view('borrows.show', [
+            'borrow' => $req['data'],
+            'title' => 'Book Detail'
+        ]);
     }
 
     public function store(Request $request)
@@ -77,7 +81,8 @@ class BorrowsController extends Controller
         return view('borrows.edit', [
             'borrow' => $res_borrow,
             'members' => $res_members,
-            'books' => $res_books
+            'books' => $res_books,
+            'title' => 'Update Borrow'
         ]);
     }
 

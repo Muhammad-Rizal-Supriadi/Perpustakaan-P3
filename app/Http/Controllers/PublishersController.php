@@ -12,7 +12,10 @@ class PublishersController extends Controller
         $req = Http::withToken($token)->get("" . env('API_URL') . "publishers");
         
         $res = ($req->successful()) ? $req['data'] : [];
-        return view('publishers.index',['publishers'=>$res]);
+        return view('publishers.index',[
+            'publishers'=>$res,
+            'title' => 'Publishers'
+        ]);
     }
 
     public function show($id){
@@ -23,7 +26,10 @@ class PublishersController extends Controller
             return redirect()->route('publishers.index');
         }
 
-        return view('publishers.show', ['publisher' => $req['data']]);
+        return view('publishers.show', [
+            'publisher' => $req['data'],
+            'title' => 'Publisher Detail'
+        ]);
     }
 
     public function store(Request $request){
@@ -54,7 +60,10 @@ class PublishersController extends Controller
             return redirect()->route('publishers.index');
         }
 
-        return view('publishers.edit', ['publisher' => $req['data']]);
+        return view('publishers.edit', [
+            'publisher' => $req['data'],
+            'title' => 'Update Publisher'
+        ]);
     }
 
     public function update(Request $request,$id){

@@ -12,7 +12,10 @@ class MembersController extends Controller
         $req = Http::withToken($token)->get("" . env('API_URL') . "members");
         
         $res = ($req->successful()) ? $req['data'] : [];
-        return view('members.index', ['members' => $res]);
+        return view('members.index', [
+            'members' => $res,
+            'title' => 'Members'
+        ]);
     }
 
     public function show($id){
@@ -23,7 +26,10 @@ class MembersController extends Controller
             return redirect()->route('members.index');
         }
 
-        return view('members.show', ['members' => $req['data']]);
+        return view('members.show', [
+            'member' => $req['data'],
+            'title' => 'Member Detail'
+        ]);
     }
 
     public function store(Request $request){
@@ -58,7 +64,10 @@ class MembersController extends Controller
             return redirect()->route('members.index');
         }
 
-        return view('members.edit', ['member' => $req['data']]);
+        return view('members.edit', [
+            'member' => $req['data'],
+            'title' => 'Update Member'
+        ]);
     }
 
     public function update(Request $request,$id){

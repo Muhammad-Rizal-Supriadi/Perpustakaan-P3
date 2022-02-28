@@ -21,7 +21,8 @@ class BooksController extends Controller
         return view('books.index', [
             'books' => $res_books,
             'publishers' => $res_publishers,
-            'categories' => $res_categories
+            'categories' => $res_categories,
+            'title' => 'Books'
         ]);
     }
 
@@ -34,7 +35,10 @@ class BooksController extends Controller
             return redirect()->route('books.index');
         }
 
-        return view('books.show', ['book' => $req['data']]);
+        return view('books.show', [
+            'book' => $req['data'],
+            'title' => 'Book Detail'
+            ]);
     }
 
     public function store(Request $request)
@@ -83,7 +87,8 @@ class BooksController extends Controller
         return view('books.edit', [
             'book' => $res_book,
             'publishers' => $res_publishers,
-            'categories' => $res_categories
+            'categories' => $res_categories,
+            'title' => 'Update Book'
         ]);
     }
 

@@ -13,7 +13,10 @@ class EmployeesController extends Controller
         $req = Http::withToken($token)->get("" . env('API_URL') . "employees");
 
         $res = ($req->successful()) ? $req['data'] : [];
-        return view('employees.index', ['employees' => $res]);
+        return view('employees.index', [
+            'employees' => $res,
+            'title' => 'Employees'
+        ]);
     }
 
     public function show($id)
@@ -25,7 +28,10 @@ class EmployeesController extends Controller
             return redirect()->route('employees.index');
         }
 
-        return view('employees.show', ['employee' => $req['data']]);
+        return view('employees.show', [
+            'employee' => $req['data'],
+            'title' => 'Employee Detail'
+        ]);
     }
 
     public function store(Request $request)
@@ -64,7 +70,10 @@ class EmployeesController extends Controller
             return redirect()->route('employees.index');
         }
 
-        return view('employees.edit', ['employee' => $req['data']]);
+        return view('employees.edit', [
+            'employee' => $req['data'],
+            'title' => 'Update Employee'
+        ]);
     }
 
     public function update(Request $request, $id)

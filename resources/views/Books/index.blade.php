@@ -70,11 +70,10 @@
               <td>
                 <a href="{{ route('books.show',$book['id']) }}" class="btn btn-primary btn-sm">Detail</a>
                 <a href="{{ route('books.edit',$book['id']) }}" class="btn btn-success btn-sm">Edit</a>
-                <form action="{{ route('books.destroy', $book['id']) }}" method="POST"
-                    class="d-inline">
-                    @method('DELETE')
-                    @csrf
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                <form action="{{ route('books.destroy', $book['id']) }}" method="POST" class="d-inline">
+                  @method('DELETE')
+                  @csrf
+                  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                 </form>
               </td>
             </tr>
@@ -111,7 +110,6 @@
           <div>
             <label>Year</label>
             <select name="year" class="form-control">
-              <option selected="selected">Year</option>
               @for($i=date('Y'); $i>=date('Y')-32; $i-=1)
               <option value='{{ $i }}'> {{ $i }} </option>
               @endfor

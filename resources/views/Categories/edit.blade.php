@@ -3,7 +3,7 @@
 <div class="col-8 col-md-6">
     <div class="card">
     <div class="card-body">
-        <h4 class="card-title">Update Categories</h4>
+        <h4 class="card-title">Update Category</h4>
         <form action="{{ route('categories.update', $category['id']) }}" method="POST">
             @method('PUT')
             @csrf

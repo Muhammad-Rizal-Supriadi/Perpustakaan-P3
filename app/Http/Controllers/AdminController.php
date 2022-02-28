@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class AdminController extends Controller
 {
@@ -13,7 +14,24 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        $token = session()->get('token');
+        $req_borrows = Http::withToken($token)->get("" . env('API_URL') . "borrows");
+        $req_employees = Http::withToken($token)->get("" . env('API_URL') . "employees");
+        $req_books = Http::withToken($token)->get("" . env('API_URL') . "books");
+        $req_members = Http::withToken($token)->get("" . env('API_URL') . "members");
+
+        $borrows = ($req_borrows->successful()) ? $req_borrows['data'] : [];
+        $count_employees = ($req_employees->successful()) ? count($req_employees['data']) : 0;
+        $count_books = ($req_books->successful()) ? count($req_books['data']) : 0;
+        $count_members = ($req_members->successful()) ? count($req_members['data']) : 0;
+
+        return view('admin.index', [
+            'borrows' => $borrows,
+            'count_employees' => $count_employees,
+            'count_books' => $count_books,
+            'count_members' => $count_members,
+            'title' => 'Dashboard'
+        ]);
     }
 
     /**

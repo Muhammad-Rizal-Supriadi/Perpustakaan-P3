@@ -4,20 +4,20 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="icon" href="img/favicon.png" type="image/png">
-        <title>Library</title>
+        <link rel="icon" href="{{ url('images/favicon.png') }}" type="image/png">
+        <title>{{ env('APP_NAME') }}</title>
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../asset-homepage/css/bootstrap.css">
-        <link rel="stylesheet" href="../asset-homepage/vendors/linericon/style.css">
-        <link rel="stylesheet" href="../asset-homepage/css/font-awesome.min.css">
-        <link rel="stylesheet" href="../asset-homepage/vendors/owl-carousel/owl.carousel.min.css">
-        <link rel="stylesheet" href="../asset-homepage/vendors/lightbox/simpleLightbox.css">
-        <link rel="stylesheet" href="../asset-homepage/vendors/nice-select/css/nice-select.css">
-        <link rel="stylesheet" href="../asset-homepage/vendors/animate-css/animate.css">
-        <link rel="stylesheet" href="../asset-homepage/vendors/flaticon/flaticon.css">
+        <link rel="stylesheet" href="{{ url('css/homepage/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ url('vendors/linericon/style.css') }}">
+        <link rel="stylesheet" href="{{ url('css/homepage/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ url('vendors/owl-carousel/owl.carousel.min.css') }}">
+        <link rel="stylesheet" href="{{ url('vendors/lightbox/simpleLightbox.css') }}">
+        <link rel="stylesheet" href="{{ url('vendors/nice-select/css/nice-select.css') }}">
+        <link rel="stylesheet" href="{{ url('vendors/animate-css/animate.css') }}">
+        <link rel="stylesheet" href="{{ url('vendors/flaticon/flaticon.css') }}">
         <!-- main css -->
-        <link rel="stylesheet" href="../asset-homepage/css/style.css">
-        <link rel="stylesheet" href="../asset-homepage/css/responsive.css">
+        <link rel="stylesheet" href="{{ url('css/homepage/style.css') }}">
+        <link rel="stylesheet" href="{{ url('css/homepage/responsive.css') }}">
     </head>
     <body>
         
@@ -37,7 +37,7 @@
 						<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 							
 							<ul style="margin-left:900px;margin-top:20px;">
-								<li class="nav-item"><a href="{{route('login')}}" class="tickets_btn">Login</a></li>
+								<li class="nav-item"><a href="{{ route('login.index') }}" class="tickets_btn">Login</a></li>
 							</ul>
 						</div> 
 					</div>
@@ -61,7 +61,7 @@
 						</div>
 						<div class="col-lg-7">
 							<div class="home_left_img">
-								<img class="img-fluid" src="../asset-homepage/img/banner/das.png" alt="">
+								<img class="img-fluid" src="{{ url('images/banner/das.png') }}" alt="">
 							</div>
 						</div>
 					</div>
@@ -158,22 +158,22 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="../asset-homepage/js/jquery-3.2.1.min.js"></script>
-        <script src="../asset-homepage/js/popper.js"></script>
-        <script src="../asset-homepage/js/bootstrap.min.js"></script>
-        <script src="../asset-homepage/js/stellar.js"></script>
-        <script src="../asset-homepage/vendors/lightbox/simpleLightbox.min.js"></script>
-        <script src="../asset-homepage/vendors/nice-select/js/jquery.nice-select.min.js"></script>
-        <script src="../asset-homepage/vendors/isotope/imagesloaded.pkgd.min.js"></script>
-        <script src="../asset-homepage/vendors/isotope/isotope-min.js"></script>
-        <script src="../asset-homepage/vendors/owl-carousel/owl.carousel.min.js"></script>
-        <script src="../asset-homepage/js/jquery.ajaxchimp.min.js"></script>
-        <script src="../asset-homepage/vendors/counter-up/jquery.waypoints.min.js"></script>
-        <script src="../asset-homepage/vendors/counter-up/jquery.counterup.min.js"></script>
-        <script src="../asset-homepage/js/mail-script.js"></script>
+        <script src="{{ url('js/jquery-3.2.1.min.js') }}"></script>
+        <script src="{{ url('js/popper.js') }}"></script>
+        <script src="{{ url('js/bootstrap.min.js') }}"></script>
+        <script src="{{ url('js/stellar.js') }}"></script>
+        <script src="{{ url('vendors/lightbox/simpleLightbox.min.js') }}"></script>
+        <script src="{{ url('vendors/nice-select/js/jquery.nice-select.min.js') }}"></script>
+        <script src="{{ url('vendors/isotope/imagesloaded.pkgd.min.js') }}"></script>
+        <script src="{{ url('vendors/isotope/isotope-min.js') }}"></script>
+        <script src="{{ url('vendors/owl-carousel/owl.carousel.min.js') }}"></script>
+        <script src="{{ url('js/jquery.ajaxchimp.min.js') }}"></script>
+        <script src="{{ url('vendors/counter-up/jquery.waypoints.min.js') }}"></script>
+        <script src="{{ url('vendors/counter-up/jquery.counterup.min.js') }}"></script>
+        <script src="{{ url('js/mail-script.js') }}"></script>
         <!--gmaps Js-->
-        <script src="../asset-homepage/https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-        <script src="../asset-homepage/js/gmaps.min.js"></script>
-        <script src="../asset-homepage/js/theme.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+        <script src="{{ url('js/gmaps.min.js') }}"></script>
+        <script src="{{ url('js/theme.js') }}"></script>
     </body>
 </html>

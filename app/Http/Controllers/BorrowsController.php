@@ -4,106 +4,121 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Carbon\Carbon;
 
 class BorrowsController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $token = session()->get('token');
-        $response = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/borrows');
-        $response_members = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/members');
-        $response_books = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/books');
-        $date = date('yyyy-mm-dd');
+        $req_borrows = Http::withToken($token)->get("" . env('API_URL') . "borrows");
+        $req_members = Http::withToken($token)->get("" . env('API_URL') . "members");
+        $req_books = Http::withToken($token)->get("" . env('API_URL') . "books");
 
-        //echo count($response['data']);
+        $res_borrows = ($req_borrows->successful()) ? $req_borrows['data'] : [];
+        $res_members = ($req_members->successful()) ? $req_members['data'] : [];
+        $res_books = ($req_books->successful()) ? $req_books['data'] : [];
 
-        // if(array_key_exists('data', $response)) {
-        //      echo "Ada";
-        // } else {
-        //     echo "tidak ada";
-        // }
 
-        $response_data = ($response->successful()) ? $response['data'] : [];
-        $response_members_data = ($response_members->successful()) ? $response_members['data'] : [];
-        $response_books_data = ($response_books->successful()) ? $response_books['data'] : [];
-
-        
-        return view('Borrows.index', [
-            'response' => $response_data,
-            'response_members' => $response_members_data,
-            'response_books' => $response_books_data,
-            'date' => $date
+        return view('borrows.index', [
+            'borrows' => $res_borrows,
+            'members' => $res_members,
+            'books' => $res_books,
+            'title' => 'Borrows'
         ]);
-
-        //return view('Borrows.index',['response' => $response['data'],'response_members' => $response_members['data'],'response_books' => $response_books['data'],'date' => $date], 200);
-        //return view('Borrows.index')->with('error','Data not Found', 400);
-        // return view('Categories.index',[
-        //     'response'=>json_decode($response['data'])
-        // ]);
     }
 
-    public function getById($id){
+    public function show($id)
+    {
         $token = session()->get('token');
-        $borrows = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/borrows/'.$id);
-        return view('borrows.detail',['borrows' => $borrows['data']]);
-        //return $borrows->json();
-    }
+        $req = Http::withToken($token)->get("" . env('API_URL') . "borrows/" . $id . "");
 
-    public function createborrows(Request $request){
-        $token = session()->get('token');
+        if ($req->clientError()) {
+            return redirect()->route('borrows.index');
+        }
 
-        $employees_id = $request->employees_id;
-        $member_id = $request->member_id;
-        $book_id = $request->book_id;
-        $borrow_date = $request->borrow_date;
-        $return_date = $request->return_date;
-        
-        $response = Http::withToken($token)->post('https://apiperpustakaan.herokuapp.com/api/v1/borrows/',[
-            'employees_id' => $employees_id,
-            'member_id' => $member_id,
-            'book_id' => $book_id,
-            'borrow_date' => $borrow_date,
-            'return_date' => $return_date,
+        return view('borrows.show', [
+            'borrow' => $req['data'],
+            'title' => 'Book Detail'
         ]);
-        // Alert::success('Success Title', 'Success Message');
-        return redirect()->back()->with('success','Data successfully created');
-        //return $response->json();
     }
 
-    public function updateborrows($id){
+    public function store(Request $request)
+    {
         $token = session()->get('token');
-        $borrows = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/borrows/'.$id);
-        $response_members = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/members');
-        $response_books = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/books');
-        $date = date('yyyy-mm-dd');
-        //return $response->json();
-        return view('Borrows.update',['date'=>$date,'borrows' => $borrows['data'],'response_members' => $response_members['data'],'response_books' => $response_books['data']]);
-    }
-
-    public function update(Request $request,$id){
         
-        $token = session()->get('token');
-        $employees_id = $request->employees_id;
         $member_id = $request->member_id;
         $book_id = $request->book_id;
         $borrow_date = $request->borrow_date;
         $return_date = $request->return_date;
 
-        $response = Http::withToken($token)->put('https://apiperpustakaan.herokuapp.com/api/v1/borrows/'.$id,[
-            'employees_id' => $employees_id,
+        $req = Http::withToken($token)->post("" . env('API_URL') . "borrows", [
             'member_id' => $member_id,
             'book_id' => $book_id,
             'borrow_date' => $borrow_date,
             'return_date' => $return_date,
         ]);
-        //return $response->json();
-        return redirect('/borrows')->with('success','Data successfully updated');
+
+        if ($req->clientError()) {
+            return redirect()->back()->with('error', 'Data Failed to Create');
+        }
+
+        return redirect()->back()->with('success', 'Data Successfully Created');
     }
 
-    public function delete($id){
+    public function edit($id)
+    {
         $token = session()->get('token');
-        $response = Http::withToken($token)->delete('https://apiperpustakaan.herokuapp.com/api/v1/borrows/'.$id);
-        return redirect()->back()->with('error','Data deleted successfully');
-        // return $response->json();
+
+        $req_borrow = Http::withToken($token)->get("" . env('API_URL') . "borrows/" . $id . "");
+        $req_members = Http::withToken($token)->get("" . env('API_URL') . "members");
+        $req_books = Http::withToken($token)->get("" . env('API_URL') . "books");
+
+        $res_borrow = ($req_borrow->successful()) ? $req_borrow['data'] : [];
+        $res_members = ($req_members->successful()) ? $req_members['data'] : [];
+        $res_books = ($req_books->successful()) ? $req_books['data'] : [];
+
+
+        return view('borrows.edit', [
+            'borrow' => $res_borrow,
+            'members' => $res_members,
+            'books' => $res_books,
+            'title' => 'Update Borrow'
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $token = session()->get('token');
+    
+        $member_id = $request->member_id;
+        $book_id = $request->book_id;
+        $borrow_date = $request->borrow_date;
+        $return_date = $request->return_date;
+
+        $req = Http::withToken($token)->put("" . env('API_URL') . "borrows/" . $id . "", [
+            'member_id' => $member_id,
+            'book_id' => $book_id,
+            'borrow_date' => $borrow_date,
+            'return_date' => $return_date,
+        ]);
+
+        if ($req->clientError()) {
+            return redirect()->route('borrows.index')->with('error', 'Data Failed to Update');
+        }
+
+        return redirect()->route('borrows.index')->with('success', 'Data Successfully Updated');
+    }
+
+    public function destroy($id)
+    {
+        $token = session()->get('token');
+
+        $req = Http::withToken($token)->delete("" . env('API_URL') . "borrows/" . $id . "");
+
+        if ($req->clientError()) {
+            return redirect()->back()->with('error', 'Data Failed to Update');
+        }
+
+        return redirect()->back()->with('success', 'Data deleted successfully');;
     }
 }

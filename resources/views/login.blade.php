@@ -5,19 +5,18 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Skydash Admin</title>
+  <title>{{ env('APP_NAME') }}</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="../assets/vendors/feather/feather.css">
-  <link rel="stylesheet" href="../assets/vendors/ti-icons/css/themify-icons.css">
-  <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
-  <link 
+  <link rel="stylesheet" href="{{ url('vendors/feather/feather.css') }}">
+  <link rel="stylesheet" href="{{ url('vendors/ti-icons/css/themify-icons.css') }}">
+  <link rel="stylesheet" href="{{ url('vendors/css/vendor.bundle.base.css') }}">
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="../assets/css/vertical-layout-light/style.css">
+  <link rel="stylesheet" href="{{ url('css/vertical-layout-light/style.css') }}">
   <!-- endinject -->
-  <link rel="shortcut icon" href="../assets/images/favicon.png" />
+  <link rel="shortcut icon" href="{{ url('images/favicon.png') }}" />
 </head>
 
 <body>
@@ -31,7 +30,7 @@
                 <h2 style="font-family: sans-serif;">My Library</h2>
               </div>
               <h6 class="font-weight-light">Sign in to continue.</h6>
-              <form class="pt-3" action="{{route('loginApi')}}" method="post">
+              <form class="pt-3" action="{{ route('login.store') }}" method="post">
                   @csrf
                 <div class="form-group">
                   <input type="email" class="form-control form-control-lg" name="email" id="exampleInputEmail1" placeholder="Username">
@@ -41,9 +40,6 @@
                 </div>
                 <div class="mt-3">
                   <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
-                </div>
-                <div class="mt-3">
-                  <center><a href="{{url('/')}}" class="btn btn-warning btn-sm ">Back</a></center>
                 </div>
                 <!-- <div class="my-2 d-flex justify-content-between align-items-center">
                   <div class="form-check">
@@ -73,16 +69,16 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
+  <script src="{{ url('vendors/js/vendor.bundle.base.js') }}"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
   <!-- End plugin js for this page -->
   <!-- inject:js -->
-  <script src="../assets/js/off-canvas.js"></script>
-  <script src="../assets/js/hoverable-collapse.js"></script>
-  <script src="../assets/js/template.js"></script>
-  <script src="../assets/js/settings.js"></script>
-  <script src="../assets/js/todolist.js"></script>
+  <script src="{{ url('js/off-canvas.js') }}"></script>
+  <script src="{{ url('js/hoverable-collapse.js') }}"></script>
+  <script src="{{ url('js/template.js') }}"></script>
+  <script src="{{ url('js/settings.js') }}"></script>
+  <script src="{{ url('js/todolist.js') }}"></script>
   <!-- endinject -->
 </body>
 

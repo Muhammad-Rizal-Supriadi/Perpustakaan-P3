@@ -9,65 +9,90 @@ class PublishersController extends Controller
 {
     public function index(){
         $token = session()->get('token');
-        $response = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/publishers');
+        $req = Http::withToken($token)->get("" . env('API_URL') . "publishers");
         
-        $response_data = ($response->successful()) ? $response['data'] : [];
-        
-        return view('Publishers.index',['response'=>$response_data]);
-        // return view('Categories.index',[
-        //     'response'=>json_decode($response['data'])
-        // ]);
+        $res = ($req->successful()) ? $req['data'] : [];
+        return view('publishers.index',[
+            'publishers'=>$res,
+            'title' => 'Publishers'
+        ]);
     }
 
-    public function getById($id){
+    public function show($id){
         $token = session()->get('token');
-        $publishers = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/publishers/'.$id);
-        return view('Publishers.detail',['publishers' => $publishers['data']]);
+        $req = Http::withToken($token)->get("" . env('API_URL') . "publishers/" . $id . "");
+        
+        if ($req->clientError()) {
+            return redirect()->route('publishers.index');
+        }
+
+        return view('publishers.show', [
+            'publisher' => $req['data'],
+            'title' => 'Publisher Detail'
+        ]);
     }
 
-    public function createPublishers(Request $request){
+    public function store(Request $request){
         $token = session()->get('token');
 
         $name = $request->name;
         $address = $request->address;
         $phone = $request->phone;
 
-        $response = Http::withToken($token)->post('https://apiperpustakaan.herokuapp.com/api/v1/publishers/',[
+        $req = Http::withToken($token)->post("" . env('API_URL') . "publishers", [
             'name' => $name,
             'address' => $address,
             'phone' => $phone
         ]);
-        // Alert::success('Success Title', 'Success Message');
-        return redirect()->back()->with('success','Data Successfully Created');
-        //return $response->json();
+
+        if ($req->clientError()) {
+            return redirect()->back()->with('error', 'Data Failed to Create');
+        }
+
+        return redirect()->back()->with('success', 'Data Successfully Created');
     }
 
-    public function updatepublishers($id){
+    public function edit($id){
         $token = session()->get('token');
-        $publishers = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/publishers/'.$id);
-        return view('Publishers.update',['publishers' => $publishers['data']]);
+        $req = Http::withToken($token)->get("" . env('API_URL') . "publishers/" . $id . "");
+        
+        if ($req->clientError()) {
+            return redirect()->route('publishers.index');
+        }
+
+        return view('publishers.edit', [
+            'publisher' => $req['data'],
+            'title' => 'Update Publisher'
+        ]);
     }
 
     public function update(Request $request,$id){
-        
         $token = session()->get('token');
         $name = $request->name;
         $address = $request->address;
         $phone = $request->phone;
 
-        $response = Http::withToken($token)->put('https://apiperpustakaan.herokuapp.com/api/v1/publishers/'.$id,[
+        $req = Http::withToken($token)->put("" . env('API_URL') . "publishers/" . $id . "", [
             'name' => $name,
             'address' => $address,
             'phone' => $phone
         ]);
-        //return $response->json();
-        return redirect('/publishers')->with('success','Data successfully updated');
+
+        if ($req->clientError()) {
+            return redirect()->route('publishers.index')->with('error', 'Data Failed to Update');
+        }
+
+        return redirect()->route('publishers.index')->with('success', 'Data Successfully Updated');
     }
 
-    public function delete($id){
+    public function destroy($id){
         $token = session()->get('token');
-        $response = Http::withToken($token)->delete('https://apiperpustakaan.herokuapp.com/api/v1/publishers/'.$id);
-        return redirect()->back()->with('error','Data deleted successfully');;
-        // return $response->json();
+        $req = Http::withToken($token)->delete("" . env('API_URL') . "publishers/" . $id . "");
+        
+        if ($req->clientError()) {
+            return redirect()->back()->with('error', 'Data Failed to Update');
+        }
+
+        return redirect()->back()->with('success', 'Data deleted successfully');;
     }
 }

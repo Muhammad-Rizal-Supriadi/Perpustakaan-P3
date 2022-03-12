@@ -17,7 +17,7 @@ class AuthController extends Controller
         $email    = $request->email;
         $password = $request->password;
         
-        $req = Http::post("".env('API_URL')."login/web", [
+        $req = Http::post("".env('API_URL')."https://apiperpustakaan.herokuapp.com/api/v1/", [
             'email' => $email,
             'password' => $password,
         ]);

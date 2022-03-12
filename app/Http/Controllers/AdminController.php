@@ -29,8 +29,7 @@ class AdminController extends Controller
             'borrows' => $borrows,
             'count_employees' => $count_employees,
             'count_books' => $count_books,
-            'count_members' => $count_members,
-            'title' => 'Dashboard'
+            'count_members' => $count_members
         ]);
     }
 

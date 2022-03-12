@@ -18,45 +18,30 @@ class LoginController extends Controller
         $http = new \GuzzleHttp\Client;
 
         $email    = $request->email;
-        $password = $request->password; 
-
-        $rules = [
-            'email' => 'required',
-            'password' => 'required' 
-        ];
-
-        $validator = Validator::make($rules,[
-            'required' => "The field : Attribute is required"
-        ]);
-        
-        if($validator){
-            $response = $http->post('https://apiperpustakaan.herokuapp.com/api/v1/login/web', [
-                'headers'=>[
-                    'Authorization'=>'Bearer'.session()->get('token.access_token')
+        $password = $request->password;
+        try {
+            $req = $http->request('POST', "".env('API_URL')."login/web", [
+                'headers' => [
+                    'Authorization' => 'Bearer' . session()->get('token.access_token')
                 ],
-                'query'=>[
-                    'email'=>$email,
-                    'password'=>$password,
+                'form_params' => [
+                    'email' => $email,
+                    'password' => $password,
                 ]
-                
             ]);
 
-            $result = json_decode((string)$response->getBody(),true);
-            $token = $result['token']['token'];
+            $res = json_decode(
+                (string)$req->getBody(),
+                true
+            );
 
-            $request->session()->put('token',$token);
-            Session::put('authentication',$token);
+            $token = $res['token']['token'];
+            $request->session()->put('token', $token);
 
-            // dd($result);
-            // dd(
-            //     Session::get('authentication')
-            // );
-            // return dd($result);
-
-            return redirect('admin');
-        }else{
-            return redirect()->back();
-        }    
+            return redirect()->route('admin.index');
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            return redirect()->route('login.index');
+        }
         
     }
 

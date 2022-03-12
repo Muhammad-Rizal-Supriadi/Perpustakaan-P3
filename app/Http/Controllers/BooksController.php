@@ -7,33 +7,38 @@ use Illuminate\Support\Facades\Http;
 
 class BooksController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $token = session()->get('token');
-        $response = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/books');
-        $response_category = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/categories');
-        $response_publishers = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/publishers');
-        
-        $response_data = ($response->successful()) ? $response['data'] : [];
-        $response_category_data = ($response_category->successful()) ? $response_category['data'] : [];
-        $response_publishers_data = ($response_publishers->successful()) ? $response_publishers['data'] : [];
+        $req_books = Http::withToken($token)->get("" . env('API_URL') . "books");
+        $req_publishers = Http::withToken($token)->get("" . env('API_URL') . "publishers");
+        $req_categories = Http::withToken($token)->get("" . env('API_URL') . "categories");
 
-        return view('Books.index',[
-            'response_category'=>$response_category_data,
-            'response_publishers'=>$response_publishers_data,
-            'response' => $response_data]);
-        // return view('Categories.index',[
-        //     'response'=>json_decode($response['data'])
-        // ]);
+        $res_books = ($req_books->successful()) ? $req_books['data'] : [];
+        $res_publishers = ($req_publishers->successful()) ? $req_publishers['data'] : [];
+        $res_categories = ($req_categories->successful()) ? $req_categories['data'] : [];
+
+        return view('books.index', [
+            'books' => $res_books,
+            'publishers' => $res_publishers,
+            'categories' => $res_categories
+        ]);
     }
 
-    public function getById($id){
+    public function show($id)
+    {
         $token = session()->get('token');
-        $books = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/books/'.$id);
-        //return $books->json();
-        return view('Books.detail',['books' => $books['data']]);
+        $req = Http::withToken($token)->get("" . env('API_URL') . "books/" . $id . "");
+
+        if ($req->clientError()) {
+            return redirect()->route('books.index');
+        }
+
+        return view('books.show', ['book' => $req['data']]);
     }
 
-    public function createBooks(Request $request){
+    public function store(Request $request)
+    {
         $token = session()->get('token');
 
         $title = $request->title;
@@ -45,7 +50,7 @@ class BooksController extends Controller
         $category_id = $request->category_id;
         $publisher_id = $request->publisher_id;
 
-        $response = Http::withToken($token)->post('https://apiperpustakaan.herokuapp.com/api/v1/books/',[
+        $req = Http::withToken($token)->post("" . env('API_URL') . "books", [
             'title' => $title,
             'description' => $description,
             'year' => $year,
@@ -55,22 +60,37 @@ class BooksController extends Controller
             'category_id' => $category_id,
             'publisher_id' => $publisher_id
         ]);
-        // Alert::success('Success Title', 'Success Message');
-        return redirect()->back()->with('success','Data Successfully Created');
-        //return $response->json();
+
+        if ($req->clientError()) {
+            return redirect()->back()->with('error', 'Data Failed to Create');
+        }
+
+        return redirect()->back()->with('success', 'Data Successfully Created');
     }
 
-    public function updateBooks($id){
+    public function edit($id)
+    {
         $token = session()->get('token');
-        $books = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/books/'.$id);
-        $response_category = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/categories');
-        $response_publishers = Http::withToken($token)->get('https://apiperpustakaan.herokuapp.com/api/v1/publishers');
-        return view('Books.update',['response_category'=>$response_category['data'],'response_publishers'=>$response_publishers['data'],'books' => $books['data']]);
+
+        $req_book = Http::withToken($token)->get("" . env('API_URL') . "books/" . $id . "");
+        $req_publishers = Http::withToken($token)->get("" . env('API_URL') . "publishers");
+        $req_categories = Http::withToken($token)->get("" . env('API_URL') . "categories");
+
+        $res_book = ($req_book->successful()) ? $req_book['data'] : [];
+        $res_publishers = ($req_publishers->successful()) ? $req_publishers['data'] : [];
+        $res_categories = ($req_categories->successful()) ? $req_categories['data'] : [];
+
+        return view('books.edit', [
+            'book' => $res_book,
+            'publishers' => $res_publishers,
+            'categories' => $res_categories
+        ]);
     }
 
-    public function update(Request $request,$id){
-        
+    public function update(Request $request, $id)
+    {
         $token = session()->get('token');
+
         $title = $request->title;
         $description = $request->description;
         $year = $request->year;
@@ -80,7 +100,7 @@ class BooksController extends Controller
         $category_id = $request->category_id;
         $publisher_id = $request->publisher_id;
 
-        $response = Http::withToken($token)->put('https://apiperpustakaan.herokuapp.com/api/v1/books/'.$id,[
+        $req = Http::withToken($token)->put("" . env('API_URL') . "books/" . $id . "", [
             'title' => $title,
             'description' => $description,
             'year' => $year,
@@ -90,14 +110,24 @@ class BooksController extends Controller
             'category_id' => $category_id,
             'publisher_id' => $publisher_id
         ]);
-        //return $response->json();
-        return redirect('/books')->with('success','Data successfully updated');
+
+        if ($req->clientError()) {
+            return redirect()->route('books.index')->with('error', 'Data Failed to Update');
+        }
+
+        return redirect()->route('books.index')->with('success', 'Data Successfully Updated');
     }
 
-    public function delete($id){
+    public function destroy($id)
+    {
         $token = session()->get('token');
-        $response = Http::withToken($token)->delete('https://apiperpustakaan.herokuapp.com/api/v1/books/'.$id);
-        return redirect()->back()->with('error','Data deleted successfully');;
-        // return $response->json();
+
+        $req = Http::withToken($token)->delete("" . env('API_URL') . "books/" . $id . "");
+
+        if ($req->clientError()) {
+            return redirect()->back()->with('error', 'Data Failed to Update');
+        }
+
+        return redirect()->back()->with('success', 'Data deleted successfully');;
     }
 }

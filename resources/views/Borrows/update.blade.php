@@ -28,6 +28,7 @@
             <br>
             <!-- <strong>Status</strong>
              -->
+             <input type="text"  class="form-control" name="status" value="true">
             <br>
             <button type="submit" class="btn btn-primary">Save</button>
             <a href="{{route('borrowsIndex')}}" class="btn btn-warning">Back</a>

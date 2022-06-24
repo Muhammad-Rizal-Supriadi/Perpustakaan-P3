@@ -89,12 +89,14 @@ class BorrowsController extends Controller
         $book_id = $request->book_id;
         $borrow_date = $request->borrow_date;
         $return_date = $request->return_date;
+        $status = $request->status;
 
         $req = Http::withToken($token)->put("" . env('API_URL') . "borrows/" . $id . "", [
             'member_id' => $member_id,
             'book_id' => $book_id,
             'borrow_date' => $borrow_date,
             'return_date' => $return_date,
+            'status' => $status,
         ]);
 
         if ($req->clientError()) {

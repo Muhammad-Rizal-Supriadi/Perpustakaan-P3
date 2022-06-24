@@ -15,10 +15,10 @@ class AdminController extends Controller
     public function index()
     {
         $token = session()->get('token');
-        $req_borrows = Http::withToken($token)->get("" . "https://apiperpustakaan.herokuapp.com/api/v1/borrows");
-        $req_employees = Http::withToken($token)->get("" . "https://apiperpustakaan.herokuapp.com/api/v1/employees");
-        $req_books = Http::withToken($token)->get("" . "https://apiperpustakaan.herokuapp.com/api/v1/books");
-        $req_members = Http::withToken($token)->get("" . "https://apiperpustakaan.herokuapp.com/api/v1/members");
+        $req_borrows = Http::withToken($token)->get("" . env('API_URL') . "borrows");
+        $req_employees = Http::withToken($token)->get("" . env('API_URL') . "employees");
+        $req_books = Http::withToken($token)->get("" . env('API_URL') . "books");
+        $req_members = Http::withToken($token)->get("" . env('API_URL') . "members");
 
         $borrows = ($req_borrows->successful()) ? $req_borrows['data'] : [];
         $count_employees = ($req_employees->successful()) ? count($req_employees['data']) : 0;
@@ -29,7 +29,8 @@ class AdminController extends Controller
             'borrows' => $borrows,
             'count_employees' => $count_employees,
             'count_books' => $count_books,
-            'count_members' => $count_members
+            'count_members' => $count_members,
+            'title' => 'Dashboard'
         ]);
     }
 
